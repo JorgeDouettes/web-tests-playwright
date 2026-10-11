@@ -6,7 +6,11 @@
   "directories": {
     "doc": "docs"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:chromium":"playwright test --project=chromium",
+    "report":"playwright show-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JorgeDouettes/web-tests-playwright.git"
