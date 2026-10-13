@@ -1,4 +1,5 @@
 import { test, expect } from '../../fixtures';
+import { env } from '../../config/env';
 
 test.describe('Login', () => {
   test('AUTH-01 login válido redireciona para a conta', async ({
@@ -6,7 +7,7 @@ test.describe('Login', () => {
     loginpage,
     accountpage,
   }) => {
-    await loginpage.login('customer@practicesoftwaretesting.com', 'welcome01');
+    await loginpage.login(env.email, env.password);
     await expect(page).toHaveURL(/account/);
     await expect(accountpage.pageTitle).toHaveText('My account');
   });
