@@ -1,25 +1,31 @@
-import { Page, Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
-  readonly login: Locator;
-  readonly password: Locator;
-  readonly buttonLogin: Locator;
+  readonly emailInput: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
+  readonly errorMessage: Locator;
+  readonly emailError: Locator;
+  readonly passwordError: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.login = page.getByLabel('Email address');
-    this.password = page.getByLabel('Password *');
-    this.buttonLogin = page.getByRole('button', { name: 'Login' });
+    this.emailInput = page.getByLabel('Email address');
+    this.passwordInput = page.getByLabel('Password *');
+    this.submitButton = page.getByRole('button', { name: 'Login' });
+    this.errorMessage = page.getByTestId('login-error');
+    this.emailError = page.getByTestId('email-error');
+    this.passwordError = page.getByTestId('password-error');
   }
 
   async goto() {
-    await this.page.goto('auth/login');
+    await this.page.goto('/auth/login');
   }
 
-  async fluxologin(email: string, password: string) {
-    await this.login.fill(email);
-    await this.password.fill(password);
-    await this.buttonLogin.click();
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.submitButton.click();
   }
 }
