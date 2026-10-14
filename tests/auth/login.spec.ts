@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures';
 import { env } from '../../config/env';
+import { validEmail, randomPassword, invalidEmail } from '../../utils/testData';
 
 test.describe('Login', () => {
   test('AUTH-01 login válido redireciona para a conta', async ({
@@ -13,13 +14,17 @@ test.describe('Login', () => {
   });
 
   test('AUTH-02 login inválido mantem na página', async ({ page, loginpage }) => {
-    await loginpage.login('teste@teste.com', 'teste123');
+    const email = validEmail();
+    const password = randomPassword();
+    await loginpage.login(email, password);
     await expect(loginpage.errorMessage).toHaveText('Invalid email or password');
     await expect(page).toHaveURL(/login/);
   });
 
   test('AUTH-03 login com email no formato inválido', async ({ loginpage }) => {
-    await loginpage.login('testeteste123', 'test123');
+    const email = invalidEmail();
+    const password = randomPassword();
+    await loginpage.login(email, password);
     await expect(loginpage.emailError).toHaveText('Email format is invalid');
   });
 
