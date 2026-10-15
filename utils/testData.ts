@@ -11,3 +11,7 @@ export function randomPassword(): string {
 export function invalidEmail(): string {
   return faker.word.sample();
 }
+
+export function randomSerch(): string {
+  return faker.string.alpha(15);
+}
